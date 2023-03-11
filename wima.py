@@ -55,7 +55,11 @@ def random_ua():
 
 if __name__ == '__main__':
     import asyncio
+    import os
 
-    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    asyncio.run(wima())
+    if 'nt' == os:
+        asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+        asyncio.run(wima())
+    else:
+        asyncio.run(wima())

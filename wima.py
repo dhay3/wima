@@ -57,7 +57,7 @@ if __name__ == '__main__':
     import asyncio
     import os
 
-    if 'nt' == os:
+    if 'nt' == os.name:
         asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
         asyncio.run(wima())

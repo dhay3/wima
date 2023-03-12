@@ -18,6 +18,8 @@ def main():
         if 'nt' == os.name:
             asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+            # loop = asyncio.get_event_loop()
+            # loop.run_until_complete(wima())
             asyncio.run(wima())
         else:
             asyncio.run(wima())

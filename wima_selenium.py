@@ -17,11 +17,10 @@ def init():
 
 
 def wait_elements_by_xpath(driver, x_path):
-    return WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.XPATH, x_path)))
+    return WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, x_path)))
 
 
-def out():
-    driver = init()
+def ipinfo(driver):
     driver.get('https://ipinfo.io/')
     tryit_data_li = wait_elements_by_xpath(driver, '//div[@id="tryit-data"]/ul[@class="my-2.5 space-y-2.5 w-full"]/li')
     rst = []
@@ -35,12 +34,12 @@ def out():
         except NoSuchElementException:
             pass
     print('ip: %s city: %s region: %s country: %s org: %s' % (rst[0], rst[1], rst[2], rst[3], rst[4]))
-    driver.quit()
 
 
 if __name__ == '__main__':
     __TIMES__ = 10
-
+    driver = init()
     with ThreadPoolExecutor(max_workers=__TIMES__) as executor:
-        for _ in range(0, 10):
-            executor.submit(out)
+        for _ in range(0, __TIMES__):
+            executor.submit(ipinfo, driver)
+    driver.quit()

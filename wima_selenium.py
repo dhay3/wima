@@ -7,7 +7,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service as ChromeService
 
 
-def init():
+def init() -> ...:
+    """
+    if Selenium >= 4.6 there is no need to download webdriver and configure the executable_path
+    :return:
+    """
     service = ChromeService(executable_path='chromedriver.exe')
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
@@ -16,7 +20,7 @@ def init():
     return driver
 
 
-def wait_elements_by_xpath(driver, x_path):
+def wait_elements_by_xpath(driver, x_path: str) -> ...:
     return WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, x_path)))
 
 
@@ -33,7 +37,7 @@ def ipinfo(driver):
                     rst.append(t_li)
         except NoSuchElementException:
             pass
-    print('ip: %s city: %s region: %s country: %s org: %s' % (rst[0], rst[1], rst[2], rst[3], rst[4]))
+    print('ip: {0} city: {1} region: {2} country: {3} org: {4}'.format(*rst))
 
 
 if __name__ == '__main__':
